@@ -1,7 +1,6 @@
-import React from 'react'
-import logo from './logo.svg'
-import './App.css'
-import Header from './components/Header'
+import logo from "./logo.svg";
+import "./App.css";
+import Header from "./components/Header";
 
 function App() {
   return (
@@ -24,7 +23,7 @@ function App() {
         </header>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
