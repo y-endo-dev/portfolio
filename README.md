@@ -46,3 +46,9 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 To learn React, check out the [React documentation](https://reactjs.org/).
 
 npx npm-force-resolutions
+
+## 使用技術
+
+React
+TypeSprict
+Microsoft Designer
