@@ -1,20 +1,20 @@
-import { GITHUB_API_URL } from "@/config";
 import Logo from "@/logo.png";
 import { AppBarCategories } from "@/types";
 import MenuIcon from "@mui/icons-material/Menu";
-import AppBar from "@mui/material/AppBar";
-import Avatar from "@mui/material/Avatar";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Toolbar from "@mui/material/Toolbar";
-import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import { useState } from "react";
 import { Link as Scroll } from "react-scroll";
 
 const pages: AppBarCategories[] = [
@@ -27,42 +27,20 @@ const pages: AppBarCategories[] = [
     title: "Skils",
   },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
-  const [profileImage, setProfileImage] = useState<string>("");
-  useEffect(() => {
-    const fetchGitHubProfile = async () => {
-      try {
-        const response = await axios.get(GITHUB_API_URL);
-        setProfileImage(response.data.avatar_url);
-      } catch (error) {
-        console.error("Error fetching GitHub profile:", error);
-      }
-    };
-    fetchGitHubProfile();
-  });
-
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   return (
-    <AppBar position="sticky" sx={{ boxShadow: "none" }}>
+    <AppBar id="header" position="sticky" sx={{ boxShadow: "none" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Tooltip title="Top Page">
@@ -101,7 +79,12 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <Scroll to={page.id} smooth={true} duration={500} offset={-60}>
+                <Scroll
+                  key={page.title + "_scroll"}
+                  to={page.id}
+                  smooth={true}
+                  duration={800}
+                >
                   <MenuItem key={page.title} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">{page.title}</Typography>
                   </MenuItem>
@@ -133,7 +116,13 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Scroll to={page.id} smooth={true} duration={500} offset={-70}>
+              <Scroll
+                key={page.title + "_scroll"}
+                to={page.id}
+                smooth={true}
+                duration={500}
+                spy={true}
+              >
                 <Button
                   key={page.title}
                   onClick={handleCloseNavMenu}
@@ -143,36 +132,6 @@ function ResponsiveAppBar() {
                 </Button>
               </Scroll>
             ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open Profile">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src={profileImage} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
           </Box>
         </Toolbar>
       </Container>
