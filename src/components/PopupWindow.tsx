@@ -7,14 +7,14 @@ const PopupWindow: React.FC = () => {
       <Box className="[perspective:2000px] w-fit mx-auto">
         <Box
           className="
-            group border w-80 mx-async 
-            [transform-style:preserve-3d] [transform:rotateY(-24deg)_rotateX(45deg)] 
-            rounded-md shadow-ms mt-20 rounderd-lg"
+            group border w-50 mx-async 
+            [transform-style:preserve-3d] [transform:rotateY(-20deg)_rotateX(40deg)] 
+            rounded-md shadow-ms rounderd-lg"
         >
           <Box
             className="
                 flex
-                gap-2 p-4 border-b  bg-gray-50
+                gap-2 p-2 border-b  bg-gray-50
                 *:size-2.5 *:rounded-full"
           >
             <Box className="bg-red-500"></Box>

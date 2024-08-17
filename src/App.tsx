@@ -1,19 +1,23 @@
 import AboutMe from "@/components/AboutMe";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import Skills from "@/components/Skills";
 import TopBanner from "@/components/TopBanner";
+import theme from "@/thame";
+import { ThemeProvider } from "@emotion/react";
 import "simplebar/dist/simplebar.min.css";
 
 function App() {
   return (
     <>
-      {/* <SimpleBar style={{ maxHeight: "100vh" }}> */}
-      <Header />
-      <TopBanner />
-      <AboutMe />
-      {/* <Skills /> */}
-      <Footer />
-      {/* </SimpleBar> */}
+      <ThemeProvider theme={theme}>
+        <Header />
+        <TopBanner />
+        <AboutMe />
+        <Skills />
+        <Footer />
+        {/* </SimpleBar> */}
+      </ThemeProvider>
     </>
   );
 }

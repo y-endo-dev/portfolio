@@ -19,12 +19,24 @@ import { Link as Scroll } from "react-scroll";
 
 const pages: AppBarCategories[] = [
   {
-    id: "about-me",
-    title: "ABOUT ME",
+    id: "top",
+    title: "top",
   },
   {
-    id: "skils",
-    title: "Skils",
+    id: "profile",
+    title: "Profile",
+  },
+  {
+    id: "skills",
+    title: "Skills",
+  },
+  {
+    id: "contact",
+    title: "Contact",
+  },
+  {
+    id: "contact",
+    title: "English",
   },
 ];
 
@@ -40,15 +52,18 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar id="header" position="sticky" sx={{ boxShadow: "none" }}>
+    <AppBar id="header" position="fixed" sx={{ background: "#282c37" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* アイコン（Avatar） */}
           <Tooltip title="Top Page">
             <Avatar
               src={Logo}
               sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
             />
           </Tooltip>
+
+          {/* スマホ表示用のメニューアイコン */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -92,6 +107,8 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
+
+          {/* スマホ表示用のタイトル */}
           <Avatar
             src={Logo}
             sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
@@ -114,7 +131,16 @@ function ResponsiveAppBar() {
           >
             U-MAP
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+
+          {/* デスクトップ表示用のナビゲーションボタン */}
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              justifyContent: "end",
+              letterSpacing: ".2rem",
+            }}
+          >
             {pages.map((page) => (
               <Scroll
                 key={page.title + "_scroll"}
@@ -126,7 +152,11 @@ function ResponsiveAppBar() {
                 <Button
                   key={page.title}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                  }}
                 >
                   {page.title}
                 </Button>
@@ -138,4 +168,5 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
+
 export default ResponsiveAppBar;

@@ -1,10 +1,10 @@
 import { GITHUB_API_URL } from "@/config";
-import { Box } from "@mui/material";
+import { Avatar, Box, Grid, Link, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-const AboutMe: React.FC = () => {
+const AboutMeSection: React.FC = () => {
   const [profileImage, setProfileImage] = useState<string>("");
   useEffect(() => {
     const fetchGitHubProfile = async () => {
@@ -19,38 +19,62 @@ const AboutMe: React.FC = () => {
   });
 
   const { ref, inView } = useInView({
-    threshold: 0.3,
+    threshold: 0.5,
   });
 
   return (
     <Box
-      id="about-me"
+      id="profile"
       sx={{
         height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        px: 2,
+        py: 4,
+        color: "#282c37",
       }}
-      ref={ref}
     >
-      <Box className="p-10">
-        <Box
-          className={`bg-gray-50 gap-6 flex items-center rounded-xl bg-muted border p-6 transition duration-500 ${
-            inView ? "shadow-lg" : ""
+      <Grid container alignItems="center" width="60%" ref={ref}>
+        <Grid item xs={12} md={3}>
+          <Avatar
+            src={profileImage}
+            sx={{ width: 120, height: 120, mx: "auto" }}
+            className={`aspect-square relative transition duration-500 opacity-0 scale-75 ${
+              inView ? "opacity-100 scale-100 shadow-xl" : ""
+            }`}
+          />
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          md={9}
+          className={`opacity-0 scale-75 transition duration-500 ${
+            inView ? "opacity-100 scale-100" : ""
           }`}
         >
-          <Box
-            className={`aspect-square rounded-lg overflow-hidden border-2 border-primary-foreground w-20 relative transition duration-500 ${
-              inView ? "scale-125 -rotate-12 shadow-lg" : ""
-            }`}
-          >
-            <img src={profileImage} alt="img" />
-          </Box>
-          <Box className="flex-1 text-center">
-            <h2 className="font-bold text-xl mb-1 text-center">Yuma Endo</h2>
-            <p className="text-muted-foreground text-center">Webアプリ開発</p>
-          </Box>
-        </Box>
-      </Box>
+          <Typography variant="h2" fontWeight="bold" gutterBottom>
+            Profile
+          </Typography>
+          <Typography variant="subtitle2" paragraph>
+            2018年にエンジニアへ転職。現在は主にWebアプリ開発に従事しています。フロントエンドとバックエンドの両方をバランスよく担当し、モダンな技術スタックを用いてユーザーエクスペリエンスの向上に努めています。プロジェクト全体を見渡しながら、ビジネスの成長や変化に応じてシステムやソフトウェアが柔軟に対応できるソリューションを提供することを心掛けています。
+          </Typography>
+          <Typography variant="subtitle2" paragraph>
+            GitHub
+            <Link
+              href="https://github.com/y-endo-dev"
+              target="_blank"
+              rel="not found"
+              sx={{ textDecoration: "none", padding: "4px" }}
+            >
+              https://github.com/y-endo-dev
+            </Link>
+          </Typography>
+        </Grid>
+      </Grid>
     </Box>
   );
 };
 
-export default AboutMe;
+export default AboutMeSection;
